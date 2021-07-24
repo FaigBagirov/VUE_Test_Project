@@ -1,0 +1,12 @@
+/* Must import this file inside main.js */
+
+/* To override these global styles respecify them one by one anywhere else where it's needed*/
+
+body{
+    margin: 0;
+
+}
+
+p {
+    font-style: italic;
+}
