@@ -11,7 +11,12 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <!-- vue templates are inserted here -->
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    
+    <!-- 2e) Teleport: teleported element will be inserted inside this "div"-->
+    <div id="teleportDest"></div>
+  
   </body>
 </html>

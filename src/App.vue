@@ -1,4 +1,7 @@
+
 <template>
+<!-- This template is inserted into div with "#app" id, Except the teleports-->
+
   <div>
     <h1>{{title}}</h1>
 
@@ -8,14 +11,33 @@
     <button @click="handleClick" >click</button>
   </div>
 
-  <div v-if="showModal">
+  <!-- 1e) Teleport: I can cut this part of template and paste anywhere inside the index.html -->
+    <!-- choose the destination by "div"'s "class" or "id" selector-->
+  <teleport to="#teleportDest" v-if="showModal">
     <!-- 3a)Add a component: use it by inserting the component in html as a tag as many times as you want -->
     <!-- 2c)Add custom event: attach action to the event as if it were built in event like "click" -->
-    <Modal @closeEvent="toggleModal" someArgument="Value of the argument" :someOtherArgument="bindedVariable" theme="sale"/> <!-- 1b)Pass argument to a component: write it here as an attribute -->
+    <Modal class="modal" theme="sale" @closeEvent="toggleModal" someArgument="Value of the argument" :someOtherArgument="bindedVariable" /> <!-- 1b)Pass argument to a component: write it here as an attribute -->
+  </teleport>
+
+  <div v-if="showSlotModal">
+    <!-- 1d) Slot: To pass  template to a component use component as openening and closing tags  <Modal></Modal> -->
+    <!-- 2d) Slot: then paste whatever you want between these tags -->
+    <Modal class="slotModal" theme="" @closeEvent="toggleSlotModal" someArgument="Value of the argument" :someOtherArgument="bindedVariable" >
+      
+      <!--4d)Slot: this is default slot -->
+      <button>This is default slot</button>
+      
+      <!-- 5d) Slot: This is named slot it is shown only in slots with same name  -->
+      <template v-slot:someSlotName>
+        <button> This is named slot</button>
+      </template>
+    </Modal>
   </div>
 
   <!-- event modifier: "click.shift" trigger only on "shift"+"click" -->
-  <button class="showTheModal" @click.shift="toggleModal"> Show the modal </button>
+  <button class="showTheModal" @click.shift="toggleModal"> Shift+click to show the modal </button>
+  <button class="showTheSlotModal" @click ="toggleSlotModal">Click to show modal with slot </button>
+
 </template>
 
 <script>
@@ -34,6 +56,7 @@ export default {
       title: "First app",
       bindedVariable: "Some  binded data passed as argument",
       showModal: false,
+      showSlotModal: false,
     }
   },
   methods: {
@@ -45,6 +68,9 @@ export default {
     },
     toggleModal (){
       this.showModal = !this.showModal;
+    },
+    toggleSlotModal (){
+      this.showSlotModal = !this.showSlotModal;
     }
   },
 
@@ -58,5 +84,8 @@ export default {
 /* never use "scoped" attribute in main App.vue file */
 .showTheModal{
   margin-top: 50px;
+}
+.showTheSlotModal{
+  margin-left: 20px;
 }
 </style>
