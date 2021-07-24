@@ -1,15 +1,24 @@
 <template>
-  <div class="backdrop">
-    <div class="modal">
-      <h1>Modal Title and {{someArgument}}</h1>
-      <p>modal content and {{someOtherArgument}}</p>
+<!-- event modifier: trigger only if clicked on parent div not it's children -->
+  <div class="backdrop" @click.self="closeModal">
+    <!-- "{sale: theme === 'sale'}" means Add class name 'sale' if :the statement is true  -->
+    <div class="modal" :class="{sale: theme === 'sale'}">
+      <h1>Modal Title - {{someArgument}}</h1>
+      <p>modal content - {{someOtherArgument}}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['someArgument', 'someOtherArgument'] // 2b)Pass argument to a component: Specify it inside the "props" object
+  props: ['someArgument', 'someOtherArgument', 'theme'], // 2b)Pass argument to a component: Specify it inside the "props" object
+  methods: {
+    closeModal () {
+      //1c) Add custom event: use "$emit()" function
+      //works same as built in events "click", "change", etc.
+      this.$emit('closeEvent'); 
+    }
+  }
 }
 
 </script>
@@ -40,4 +49,16 @@ export default {
   .modal p {
     font-style: normal;
   }
-</style>
+
+  /*Select element with two classes ".oneClass.otherClass" without spaces between them*/
+  /*Select child element: ".parentClass childElementClass" there's space between them.*/
+  /*exmpl. I could select same element by it's parent: ".backdrop .sale" */
+  .modal.sale{
+    background: crimson;
+    color: white;
+  }
+
+  .modal h1{
+    color: white;
+  }
+</style>  
