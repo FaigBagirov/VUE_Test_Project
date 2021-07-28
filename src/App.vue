@@ -12,7 +12,7 @@
   </div>
 
   <!-- 1e) Teleport: I can cut this part of template and paste anywhere inside the index.html -->
-    <!-- choose the destination by "div"'s "class" or "id" selector-->
+  <!-- choose the destination by "div"'s "class" or "id" selector-->
   <teleport to="#teleportDest" v-if="showModal">
     <!-- 3a)Add a component: use it by inserting the component in html as a tag as many times as you want -->
     <!-- 2c)Add custom event: attach action to the event as if it were built in event like "click" -->
@@ -66,7 +66,8 @@ export default {
       this.$refs.someRefName.classList.add('active');
       this.$refs.someRefName.focus(); //this will put focus on "input" element when I click the button
     },
-    toggleModal (){
+    toggleModal (somePassedVar){//arguments passed with emit event are automatically available like funtion argument 
+      console.log(somePassedVar);
       this.showModal = !this.showModal;
     },
     toggleSlotModal (){
@@ -82,6 +83,9 @@ export default {
 /* these styles are global as well as all other styles inside components*/
 /* to make a style scoped its better to adress them to some general class name */
 /* never use "scoped" attribute in main App.vue file */
+#app{
+  text-align: center;
+}
 .showTheModal{
   margin-top: 50px;
 }

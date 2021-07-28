@@ -20,12 +20,36 @@
 <script>
 export default {
   props: ['someArgument', 'someOtherArgument', 'theme'], // 2b)Pass argument to a component: Specify it inside the "props" object
+  data(){
+    return{
+      someTimer: null,
+      someCounter: 0,
+    }
+  },
   methods: {
     closeModal () {
       //1c) Add custom event: use "$emit()" function
       //works same as built in events "click", "change", etc.
-      this.$emit('closeEvent'); 
+      this.$emit('closeEvent', this.someCounter); //you can pass variablse along with "emit" event
+    },
+    // read about startTimer and setInterval in devs mozilla com
+    startTimer(){
+      this.someTimer = setInterval(()=>{
+        this.someCounter += 10; 
+      }, 10)//will make "startTimer" to trigger every 10 milliseconds 
+    },
+    //stops selected timer 
+    stopTimer() {
+      clearInterval(this.someTimer);
     }
+  },
+  // this hook triggers when this component is being mounted but before it's being shown on web page
+  mounted(){
+    // do something if you need it
+  },
+  // this trigger exactly when the component is updated
+  updated(){
+
   }
 }
 
